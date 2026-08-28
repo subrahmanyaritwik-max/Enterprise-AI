@@ -1,0 +1,14 @@
+{
+  "name": "opspulse-enterprise",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run build --prefix OPSpulse/FRONTEND",
+    "vercel-build": "npm run build --prefix OPSpulse/FRONTEND"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
