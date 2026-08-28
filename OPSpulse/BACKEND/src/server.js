@@ -1,31 +1,7 @@
+import "./config/env.js";
 import express from "express";
 import cors from "cors";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 import apiRoutes from "./routes/api.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Simple native .env loader
-try {
-  const envPath = path.resolve(__dirname, "../.env");
-  if (fs.existsSync(envPath)) {
-    const envConfig = fs.readFileSync(envPath, "utf-8");
-    envConfig.split("\n").forEach(line => {
-      const trimmed = line.trim();
-      if (trimmed && !trimmed.startsWith("#")) {
-        const [key, ...vals] = trimmed.split("=");
-        if (key && vals.length > 0) {
-          process.env[key.trim()] = vals.join("=").trim();
-        }
-      }
-    });
-  }
-} catch (e) {
-  console.warn("Could not load .env file:", e);
-}
 
 const app = express();
 const PORT = process.env.PORT || 5050;

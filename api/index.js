@@ -1,3 +1,4 @@
+import "../OPSpulse/BACKEND/src/config/env.js";
 import express from "express";
 import cors from "cors";
 import apiRoutes from "../OPSpulse/BACKEND/src/routes/api.js";

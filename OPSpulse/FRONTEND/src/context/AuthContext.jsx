@@ -1,10 +1,24 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem("opspulse_user");
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  });
+
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    try {
+      return !!localStorage.getItem("opspulse_user");
+    } catch (e) {
+      return false;
+    }
+  });
 
   const login = async ({ email, password, role, name }) => {
     if (!email || !password) {
@@ -31,6 +45,9 @@ export const AuthProvider = ({ children }) => {
       if (data.success && data.user) {
         setUser(data.user);
         setIsAuthenticated(true);
+        try {
+          localStorage.setItem("opspulse_user", JSON.stringify(data.user));
+        } catch (e) {}
         return { success: true, user: data.user };
       } else {
         return { success: false, error: data.error || "Invalid credentials. Please verify your email and password." };
@@ -69,7 +86,32 @@ export const AuthProvider = ({ children }) => {
 
     setUser(userData);
     setIsAuthenticated(true);
+    try {
+      localStorage.setItem("opspulse_user", JSON.stringify(userData));
+    } catch (e) {}
     return { success: true, user: userData };
+  };
+
+  const register = async ({ email, password, name, role, department }) => {
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name, role, department })
+      });
+      const data = await res.json();
+      if (res.status === 201 && data.user) {
+        setUser(data.user);
+        setIsAuthenticated(true);
+        try {
+          localStorage.setItem("opspulse_user", JSON.stringify(data.user));
+        } catch (e) {}
+        return { success: true, user: data.user };
+      }
+      return { success: false, error: data.error || "Registration failed" };
+    } catch (e) {
+      return login({ email, password, name, role });
+    }
   };
 
   const switchRole = (roleName) => {
@@ -81,16 +123,22 @@ export const AuthProvider = ({ children }) => {
         title: roleName === "Department Head" ? "Head of Inventory & Logistics" : roleName === "Employee" ? "Senior Operations Specialist" : "VP of Enterprise Operations"
       };
       setUser(updatedUser);
+      try {
+        localStorage.setItem("opspulse_user", JSON.stringify(updatedUser));
+      } catch (e) {}
     }
   };
 
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
+    try {
+      localStorage.removeItem("opspulse_user");
+    } catch (e) {}
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, switchRole, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, register, switchRole, logout }}>
       {children}
     </AuthContext.Provider>
   );
