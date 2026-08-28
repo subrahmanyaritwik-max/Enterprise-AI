@@ -120,9 +120,17 @@ export const LandingPage = () => {
     }
   };
 
+  const handleSignIn = () => {
+    setActiveTab("login");
+  };
+
   const handleInspectIncident = () => {
     openOrderDetail("ORD-1042");
-    handleLaunchApp();
+    if (isAuthenticated) {
+      setActiveTab("overview");
+    } else {
+      setActiveTab("login");
+    }
   };
 
   const gradientStyle = {
@@ -268,7 +276,7 @@ export const LandingPage = () => {
             {/* Right Controls */}
             <div className="hidden md:flex items-center gap-3 shrink-0">
               <button
-                onClick={handleLaunchApp}
+                onClick={handleSignIn}
                 className="text-xs font-bold text-white/70 hover:text-white px-3 py-2 transition-colors cursor-pointer whitespace-nowrap"
               >
                 Sign In
@@ -314,8 +322,11 @@ export const LandingPage = () => {
             ))}
             <div className="pt-2 flex items-center gap-2">
               <button
-                onClick={handleLaunchApp}
-                className="flex-1 text-xs font-bold text-slate-300 py-2.5 rounded-lg border border-white/10 bg-white/5"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleSignIn();
+                }}
+                className="flex-1 text-xs font-bold text-slate-300 py-2.5 rounded-lg border border-white/10 bg-white/5 cursor-pointer"
               >
                 Sign In
               </button>

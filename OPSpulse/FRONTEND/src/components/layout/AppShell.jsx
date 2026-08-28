@@ -41,8 +41,8 @@ export const AppShell = () => {
     return <LandingPage />;
   }
 
-  // If not authenticated, always show login
-  if (!isAuthenticated) {
+  // If on login route or not authenticated, always show login page
+  if (activeTab === "login" || !isAuthenticated) {
     return <LoginPage />;
   }
 
