@@ -228,5 +228,8 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_LVRES5t75rnhnXDyo3g3kg_kBViqTtN
 
 ## 16. Team Members
 
-- **Rithvik Max** — Full Stack Engineering & System Architecture
-- **Team Warriors8** — Enterprise AI & Operational Intelligence Design
+### ⚡ Team: **codezen**
+1. **Ritwik**
+2. **Venu**
+3. **Chandu**
+4. **Chetan**

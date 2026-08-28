@@ -972,7 +972,11 @@ export const LandingPage = () => {
               <LogoMark className="w-6 h-6 text-xs" />
               <span className="font-bold text-white/80 text-sm">OPSpulse Enterprise</span>
             </div>
-            <p>&copy; 2026 OPSpulse Operational Intelligence Systems, Inc. All rights reserved.</p>
+            <div className="flex items-center gap-2 text-white/70 text-xs">
+              <span>Built by Team <strong className="text-enterprise-400 font-bold">codezen</strong>:</span>
+              <span className="text-white/90">Ritwik • Venu • Chandu • Chetan</span>
+            </div>
+            <p>&copy; 2026 OPSpulse Systems, Inc.</p>
           </div>
         </footer>
       </div>
