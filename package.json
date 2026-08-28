@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "cd OPSpulse/FRONTEND && npm install && npm run build",
-    "vercel-build": "cd OPSpulse/FRONTEND && npm install && npm run build"
+    "postinstall": "npm install --prefix OPSpulse/FRONTEND",
+    "build": "npm run build --prefix OPSpulse/FRONTEND",
+    "vercel-build": "npm run build --prefix OPSpulse/FRONTEND"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
