@@ -1,6 +1,29 @@
 import express from "express";
+import { z } from "zod";
 import { store } from "../data/store.js";
 import { UserService, AppRecordsService, AiOutputsService, hashPassword } from "../db/supabase.js";
+
+// Zod Validation Schemas
+export const AiStructuredOutputSchema = z.object({
+  result: z.string().min(1, "Result cannot be empty"),
+  reason: z.string().min(1, "Reason cannot be empty"),
+  next_step: z.string().min(1, "Next step cannot be empty")
+});
+
+export const RegisterSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(3, "Password must be at least 3 characters"),
+  name: z.string().optional(),
+  role: z.string().optional(),
+  department: z.string().optional()
+});
+
+export const AiPromptInputSchema = z.object({
+  prompt: z.string().min(1, "Prompt cannot be empty").optional(),
+  query: z.string().min(1, "Query cannot be empty").optional(),
+  userId: z.string().nullable().optional(),
+  record_id: z.string().nullable().optional()
+});
 
 const router = express.Router();
 
@@ -383,14 +406,17 @@ You MUST respond strictly with valid JSON only in this exact format (no markdown
       }
     }
 
-    // 3. Save validated structured output into AI_OUTPUTS table
-    const aiOutput = await AiOutputsService.createOutput(recId, structuredResult);
+    // 3. Validate with Zod Schema
+    const validatedOutput = AiStructuredOutputSchema.parse(structuredResult);
+
+    // 4. Save validated structured output into AI_OUTPUTS table
+    const aiOutput = await AiOutputsService.createOutput(recId, validatedOutput);
 
     return res.status(201).json({
       success: true,
-      result: structuredResult.result,
-      reason: structuredResult.reason,
-      next_step: structuredResult.next_step,
+      result: validatedOutput.result,
+      reason: validatedOutput.reason,
+      next_step: validatedOutput.next_step,
       record_id: recId,
       ai_output_id: aiOutput.id,
       model: "Google Gemini 1.5 Flash / OPSpulse Engine"
