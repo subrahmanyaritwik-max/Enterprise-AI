@@ -14,8 +14,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Mount API routes
+// Mount API routes on both /api prefix and root for Vercel serverless compatibility
 app.use("/api", apiRoutes);
+app.use("/", apiRoutes);
 
 app.get("/health", (req, res) => {
   res.json({
