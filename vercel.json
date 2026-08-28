@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm install --prefix OPSpulse/FRONTEND && npm run build --prefix OPSpulse/FRONTEND",
+  "buildCommand": "cd OPSpulse/FRONTEND && npm install && npm run build",
   "outputDirectory": "OPSpulse/FRONTEND/dist",
   "rewrites": [
     {
