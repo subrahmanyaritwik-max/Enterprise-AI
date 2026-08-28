@@ -21,6 +21,8 @@ import { ReportsPage } from "../../pages/ReportsPage";
 import { ActivityCenter } from "../../pages/ActivityCenter";
 import { NotificationsPage } from "../../pages/NotificationsPage";
 import { SettingsPage } from "../../pages/SettingsPage";
+import { ApiKeysPage } from "../../pages/ApiKeysPage";
+import { RecordsPage } from "../../pages/RecordsPage";
 
 // Modals
 import { AiDailyBriefModal } from "../modals/AiDailyBriefModal";
@@ -62,6 +64,10 @@ export const AppShell = () => {
         return <DepartmentPerformance />;
       case "analytics":
         return <BottleneckIntelligence />;
+      case "records":
+        return <RecordsPage />;
+      case "api-keys":
+        return <ApiKeysPage />;
       case "reports":
         return <ReportsPage />;
       case "activity":

@@ -18,6 +18,8 @@ const getTabFromPath = (path) => {
   if (p === "/risks") return { tab: "risks", orderId: null };
   if (p === "/departments") return { tab: "departments", orderId: null };
   if (p === "/analytics" || p === "/bottlenecks") return { tab: "analytics", orderId: null };
+  if (p === "/records") return { tab: "records", orderId: null };
+  if (p === "/api-keys" || p === "/api-docs" || p === "/api") return { tab: "api-keys", orderId: null };
   if (p === "/reports") return { tab: "reports", orderId: null };
   if (p === "/activity") return { tab: "activity", orderId: null };
   if (p === "/notifications") return { tab: "notifications", orderId: null };
@@ -47,6 +49,10 @@ const getPathFromTab = (tab, orderId) => {
       return "/departments";
     case "analytics":
       return "/analytics";
+    case "records":
+      return "/records";
+    case "api-keys":
+      return "/api-keys";
     case "reports":
       return "/reports";
     case "activity":

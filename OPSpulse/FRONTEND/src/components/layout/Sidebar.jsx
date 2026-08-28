@@ -15,7 +15,9 @@ import {
   LogOut,
   User,
   Shield,
-  X
+  X,
+  Database,
+  Key
 } from "lucide-react";
 
 export const Sidebar = () => {
@@ -51,6 +53,8 @@ export const Sidebar = () => {
     },
     { id: "departments", label: "Departments", icon: Building2 },
     { id: "analytics", label: "Bottlenecks", icon: BarChart3 },
+    { id: "records", label: "Database Records", icon: Database, badge: "Supabase", badgeColor: "bg-emerald-600 text-white" },
+    { id: "api-keys", label: "API Keys & URLs", icon: Key, badge: "REST", badgeColor: "bg-blue-600 text-white" },
     { id: "reports", label: "Reports", icon: FileText },
     { id: "activity", label: "Activity", icon: Activity },
     { id: "settings", label: "Settings", icon: Settings }

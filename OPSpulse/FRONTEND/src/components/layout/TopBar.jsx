@@ -10,7 +10,8 @@ import {
   AlertCircle,
   ShieldAlert,
   X,
-  Menu
+  Menu,
+  Key
 } from "lucide-react";
 
 export const TopBar = () => {
@@ -21,6 +22,7 @@ export const TopBar = () => {
     setIsAskOpsOpen,
     setIsSearchOpen,
     openOrderDetail,
+    setActiveTab,
     isMobileDrawerOpen,
     setIsMobileDrawerOpen
   } = useOps();
@@ -77,6 +79,15 @@ export const TopBar = () => {
         >
           <Sparkles size={14} className="text-blue-400 shrink-0" />
           <span className="hidden sm:inline">Ask Operations</span>
+        </button>
+
+        {/* API Keys Quick Button */}
+        <button
+          onClick={() => setActiveTab("api-keys")}
+          className="p-2 rounded-xl hover:bg-slate-100 text-slate-600 hover:text-enterprise-600 transition-colors relative cursor-pointer"
+          title="API Keys & Unique Page Endpoints"
+        >
+          <Key size={17} />
         </button>
 
         <div className="h-6 w-px bg-slate-200 mx-0.5 sm:mx-1" />
