@@ -89,7 +89,7 @@ export const LiveThreatToast = () => {
               }}
               className="text-slate-300 hover:text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg hover:bg-slate-800 transition-colors"
             >
-              Inspect
+              View Order
             </button>
             <button
               onClick={() => {

@@ -142,7 +142,7 @@ export const PulseBotRobot = () => {
             }
           },
           secondaryAction: {
-            label: "Inspect Order #1042 Record",
+            label: "View Order #1042 Record",
             onClick: () => {
               openOrderDetail("ORD-1042");
             }

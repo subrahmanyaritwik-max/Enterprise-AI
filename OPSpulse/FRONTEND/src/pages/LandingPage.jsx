@@ -27,7 +27,12 @@ import {
   CheckCircle2,
   Cpu,
   Layers,
-  AlertTriangle
+  AlertTriangle,
+  Play,
+  Calendar,
+  Video,
+  Send,
+  Star
 } from "lucide-react";
 
 // Shared Primitive: Futuristic Robot Avatar SVG Mascot
@@ -111,6 +116,14 @@ export const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [yearly, setYearly] = useState(false);
   const [selectedSignalIndex, setSelectedSignalIndex] = useState(0);
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
+  const [demoSubmitted, setDemoSubmitted] = useState(false);
+  const [demoForm, setDemoForm] = useState({ name: "", email: "", company: "" });
+
+  const handleBookDemo = (e) => {
+    if (e) e.preventDefault();
+    setDemoSubmitted(true);
+  };
 
   const handleLaunchApp = () => {
     if (isAuthenticated) {
@@ -124,14 +137,7 @@ export const LandingPage = () => {
     setActiveTab("login");
   };
 
-  const handleInspectIncident = () => {
-    openOrderDetail("ORD-1042");
-    if (isAuthenticated) {
-      setActiveTab("overview");
-    } else {
-      setActiveTab("login");
-    }
-  };
+
 
   const gradientStyle = {
     backgroundImage:
@@ -383,11 +389,11 @@ export const LandingPage = () => {
           >
             <ActionButton label="Launch Command Center" onClick={handleLaunchApp} />
             <button
-              onClick={handleInspectIncident}
-              className="rounded-full border border-white/15 text-white text-sm font-medium px-6 py-3.5 hover:bg-white/5 transition-all flex items-center gap-2 cursor-pointer"
+              onClick={() => setDemoModalOpen(true)}
+              className="rounded-full border border-white/15 text-white text-sm font-medium px-6 py-3.5 hover:bg-white/5 hover:border-white/30 transition-all flex items-center gap-2.5 cursor-pointer shadow-sm group"
             >
-              <ShieldAlert size={16} className="text-red-400" />
-              <span>Inspect Order #1042 Incident</span>
+              <Play size={16} className="text-enterprise-400 fill-enterprise-400/20 group-hover:scale-110 transition-transform" />
+              <span>Watch Platform Demo</span>
             </button>
           </motion.div>
         </section>
@@ -619,10 +625,18 @@ export const LandingPage = () => {
                     <span>Run 1-Click AI Mitigation</span>
                   </button>
                   <button
-                    onClick={handleInspectIncident}
-                    className="bg-white/10 hover:bg-white/15 text-white font-medium py-2 px-3 rounded-lg text-xs transition-colors cursor-pointer"
+                    onClick={() => {
+                      openOrderDetail("ORD-1042");
+                      if (isAuthenticated) {
+                        setActiveTab("overview");
+                      } else {
+                        setActiveTab("login");
+                      }
+                    }}
+                    className="bg-white/10 hover:bg-white/15 text-white font-medium py-2 px-3 rounded-lg text-xs transition-colors cursor-pointer flex items-center gap-1"
                   >
-                    Inspect
+                    <span>View Signal</span>
+                    <ChevronRight size={13} />
                   </button>
                 </div>
               </div>
@@ -966,11 +980,11 @@ export const LandingPage = () => {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <ActionButton label="Launch OPSpulse Workspace" onClick={handleLaunchApp} />
               <button
-                onClick={handleInspectIncident}
-                className="rounded-full border border-white/15 text-white text-sm font-medium px-6 py-3.5 hover:bg-white/5 transition-colors flex items-center gap-2 cursor-pointer"
+                onClick={() => setDemoModalOpen(true)}
+                className="rounded-full border border-white/15 text-white text-sm font-medium px-6 py-3.5 hover:bg-white/5 hover:border-white/30 transition-colors flex items-center gap-2 cursor-pointer shadow-sm group"
               >
-                <ShieldAlert size={16} className="text-red-400" />
-                <span>See Live Incident Demo</span>
+                <Calendar size={16} className="text-enterprise-400 group-hover:scale-110 transition-transform" />
+                <span>Schedule Live Demo</span>
               </button>
             </div>
           </motion.div>
@@ -991,6 +1005,130 @@ export const LandingPage = () => {
           </div>
         </footer>
       </div>
+
+      {/* Demo Booking & Video Preview Modal */}
+      {demoModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="liquid-glass max-w-lg w-full p-6 md:p-8 rounded-3xl border border-white/15 relative shadow-2xl bg-[#091020]/95 text-white">
+            <button
+              onClick={() => {
+                setDemoModalOpen(false);
+                setDemoSubmitted(false);
+              }}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            >
+              <X size={16} />
+            </button>
+
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-enterprise-400 uppercase tracking-wider mb-2">
+              <Sparkles size={14} />
+              <span>OPSpulse Enterprise Demo</span>
+            </div>
+
+            <h3 className="text-2xl font-bold text-white tracking-tight">
+              {demoSubmitted ? "Demo Access Confirmed!" : "Experience OPSpulse in Action"}
+            </h3>
+            
+            <p className="text-white/60 text-xs mt-2 leading-relaxed">
+              {demoSubmitted
+                ? "Your enterprise sandbox environment is prepared. Our solutions architect will contact you shortly."
+                : "Explore our real-time AI operations intelligence platform or schedule a customized 1-on-1 walkthrough with an operational strategist."}
+            </p>
+
+            {demoSubmitted ? (
+              <div className="mt-6 p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4">
+                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40">
+                  <CheckCircle2 size={24} />
+                </div>
+                <h4 className="font-bold text-emerald-300 text-sm">Request Successfully Logged</h4>
+                <p className="text-xs text-white/70">
+                  We've reserved a live demo session for <strong>{demoForm.email || "your team"}</strong>.
+                </p>
+                <button
+                  onClick={() => {
+                    setDemoModalOpen(false);
+                    setDemoSubmitted(false);
+                    handleLaunchApp();
+                  }}
+                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition-colors cursor-pointer shadow-lg"
+                >
+                  Launch Interactive Demo Workspace Now
+                </button>
+              </div>
+            ) : (
+              <div className="mt-6 space-y-5">
+                {/* Launch Sandbox Quick Button */}
+                <div className="p-4 rounded-2xl bg-enterprise-950/40 border border-enterprise-500/30 flex items-center justify-between gap-3">
+                  <div>
+                    <span className="font-bold text-white text-xs block">Instant Interactive Tour</span>
+                    <span className="text-[11px] text-white/60">Explore full workspace with sample live operational data</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setDemoModalOpen(false);
+                      handleLaunchApp();
+                    }}
+                    className="bg-white hover:bg-white/90 text-slate-900 font-bold text-xs px-4 py-2.5 rounded-xl transition-colors cursor-pointer shrink-0"
+                  >
+                    Launch Live
+                  </button>
+                </div>
+
+                <div className="relative flex items-center justify-center my-2">
+                  <div className="border-t border-white/10 w-full" />
+                  <span className="bg-[#091020] px-3 text-[10px] uppercase font-mono text-white/40 shrink-0">or schedule 1-on-1</span>
+                </div>
+
+                <form onSubmit={handleBookDemo} className="space-y-3">
+                  <div>
+                    <label className="text-[11px] font-semibold text-white/70 block mb-1">Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Sarah Jenkins"
+                      value={demoForm.name}
+                      onChange={(e) => setDemoForm({ ...demoForm, name: e.target.value })}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-enterprise-400 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-semibold text-white/70 block mb-1">Work Email</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="sarah@enterprise.com"
+                      value={demoForm.email}
+                      onChange={(e) => setDemoForm({ ...demoForm, email: e.target.value })}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-enterprise-400 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-semibold text-white/70 block mb-1">Company / Organization</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Apex Supply Chain Logistics"
+                      value={demoForm.company}
+                      onChange={(e) => setDemoForm({ ...demoForm, company: e.target.value })}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-enterprise-400 transition-colors"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-enterprise-600 hover:bg-enterprise-500 text-white font-bold py-3 rounded-xl text-xs transition-colors cursor-pointer shadow-lg shadow-blue-900/30 flex items-center justify-center gap-2 mt-2"
+                  >
+                    <span>Request VIP Enterprise Demo</span>
+                    <ChevronRight size={14} />
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

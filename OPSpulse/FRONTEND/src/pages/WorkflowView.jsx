@@ -32,7 +32,7 @@ export const WorkflowView = () => {
           onClick={() => openOrderDetail("ORD-1042")}
           className="bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-colors flex items-center gap-1.5 shadow-sm"
         >
-          <span>Inspect Order #1042</span>
+          <span>View Order Details</span>
           <ArrowRight size={14} />
         </button>
       </div>

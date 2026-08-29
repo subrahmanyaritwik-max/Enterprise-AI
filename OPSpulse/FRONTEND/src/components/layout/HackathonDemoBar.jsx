@@ -26,7 +26,7 @@ export const HackathonDemoBar = () => {
     },
     {
       title: "3. Order #1042 Deep Dive",
-      subtitle: "Inspect 120 ordered vs 84 stock shortage & ₹2,40,000 value",
+      subtitle: "Review 120 ordered vs 84 stock shortage & ₹2,40,000 value",
       action: () => {
         setSelectedOrderId("ORD-1042");
         setActiveTab("order-detail");
@@ -41,7 +41,7 @@ export const HackathonDemoBar = () => {
     },
     {
       title: "5. Inventory Task TASK-781",
-      subtitle: "Inspect stock audit task assigned to Inventory Manager",
+      subtitle: "Review stock audit task assigned to Inventory Manager",
       action: () => {
         setActiveTab("tasks");
       }

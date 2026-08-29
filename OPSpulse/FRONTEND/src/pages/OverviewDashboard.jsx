@@ -335,7 +335,7 @@ export const OverviewDashboard = () => {
               className="bg-enterprise-600 hover:bg-enterprise-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
               <FileScan size={14} className="text-blue-300" />
-              <span>Inspect Order #1042</span>
+              <span>View Order #1042</span>
             </button>
           )}
         </div>
@@ -707,7 +707,7 @@ export const OverviewDashboard = () => {
                   onClick={() => openOrderDetail("ORD-1042")}
                   className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
                 >
-                  <span>Inspect Issue</span>
+                  <span>Analyze Issue</span>
                   <ArrowRight size={14} />
                 </button>
               </div>
